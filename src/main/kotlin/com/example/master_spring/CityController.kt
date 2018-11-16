@@ -1,9 +1,7 @@
 package com.example.master_spring
 
 import org.springframework.transaction.annotation.Transactional
-import org.springframework.web.bind.annotation.GetMapping
-import org.springframework.web.bind.annotation.RequestMapping
-import org.springframework.web.bind.annotation.RestController
+import org.springframework.web.bind.annotation.*
 
 
 @RestController
@@ -11,5 +9,25 @@ import org.springframework.web.bind.annotation.RestController
 @Transactional
 class CityController{
   @GetMapping
-  fun index() = City.all().joinToString(prefix = "[", postfix = "]", separator = ",") { "{id: ${it.id}, name: ${it.name}}" }
+  fun index() = JSON(City.all().map(City::DTO))
+
+  @PostMapping
+  fun create(@RequestBody req: CreateCityRequest) = JSON(City.new{name = req.name}.DTO())
+
+  @GetMapping("/{id}")
+  fun get(@PathVariable id: Int) = JSON(City.get(id).DTO())
+
+  @PutMapping("/{id}")
+  fun update(@PathVariable id: Int, @RequestBody req: UpdateCityRequest): String{
+    val city = City.get(id)
+    city.name = req.name
+    return JSON(city.DTO())
+  }
+
+  @DeleteMapping("/{id}")
+  fun delete(@PathVariable id: Int): String{
+    val city = City.get(id)
+    city.delete()
+    return "ok"
+  }
 }

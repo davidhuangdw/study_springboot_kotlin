@@ -10,9 +10,6 @@ import org.springframework.context.annotation.Configuration
 import org.springframework.transaction.annotation.EnableTransactionManagement
 import javax.sql.DataSource
 
-//import org.springframework.cloud.client.discovery.EnableDiscoveryClient
-//import org.springframework.cloud.netflix.eureka.EnableEurekaClient
-
 @SpringBootApplication
 class MasterSpringApplication
 
