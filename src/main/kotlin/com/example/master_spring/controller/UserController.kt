@@ -1,8 +1,13 @@
-package com.example.master_spring
+package com.example.master_spring.controller
 
 import com.example.master_spring.common.toJson
+import com.example.master_spring.exception.RequestException
+import com.example.master_spring.model.Cities
+import com.example.master_spring.model.City
+import com.example.master_spring.model.CreateUserRequest
+import com.example.master_spring.model.User
 import com.example.master_spring.presenter.CollectionPresenter
-import org.jetbrains.exposed.sql.select
+import org.springframework.http.HttpStatus
 import org.springframework.transaction.annotation.Transactional
 import org.springframework.web.bind.annotation.*
 
@@ -25,13 +30,19 @@ class UserController{
     ).toJson()
   }
 
+  @GetMapping("/{id}")
+  fun get(@PathVariable id: Int) = User.get(id).toJson()
+
   @PostMapping
   fun create(@RequestBody req: CreateUserRequest):String{
     val user = User.new{
       name = req.name
-      if(req.age != null) age = req.age
+      if(req.age != null) {
+        age = req.age
+        if(req.age > 200) throw RequestException(HttpStatus.BAD_REQUEST, "invalid age ${req.age}")
+      }
       if(req.city != null)
-        City.find{Cities.name eq req.city}.lastOrNull()?.let{ city = it }
+        City.find{ Cities.name eq req.city}.lastOrNull()?.let{ city = it }
     }
     return user.toJson()
   }

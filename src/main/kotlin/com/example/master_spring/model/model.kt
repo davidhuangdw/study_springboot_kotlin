@@ -1,8 +1,6 @@
-package com.example.master_spring
+package com.example.master_spring.model
 
 import com.example.master_spring.common.Jsonable
-import com.fasterxml.jackson.annotation.JsonIgnore
-import com.fasterxml.jackson.annotation.JsonProperty
 import org.jetbrains.exposed.dao.EntityID
 import org.jetbrains.exposed.dao.IntEntity
 import org.jetbrains.exposed.dao.IntEntityClass

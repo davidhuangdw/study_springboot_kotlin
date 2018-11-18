@@ -1,4 +1,4 @@
-package com.example.master_spring
+package com.example.master_spring.model
 import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
 
 //fun JSON(value: Any) = jacksonObjectMapper().writeValueAsString(value)

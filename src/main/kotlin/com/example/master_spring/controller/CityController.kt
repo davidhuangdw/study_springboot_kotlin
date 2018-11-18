@@ -1,6 +1,9 @@
-package com.example.master_spring
+package com.example.master_spring.controller
 
 import com.example.master_spring.common.toJson
+import com.example.master_spring.model.City
+import com.example.master_spring.model.CreateCityRequest
+import com.example.master_spring.model.UpdateCityRequest
 import com.example.master_spring.presenter.CollectionPresenter
 import org.springframework.transaction.annotation.Transactional
 import org.springframework.web.bind.annotation.*
